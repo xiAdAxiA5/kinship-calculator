@@ -140,7 +140,7 @@ export default function ResultScreen() {
       )}
 
       {/* Save Modal with Photo Upload */}
-      <Modal visible={saveModalVisible} transparent animationType="slide">
+      <Modal visible={saveModalVisible} transparent animationType="slide" onRequestClose={() => { setSaveModalVisible(false); setPhotoUri(null); }}>
         <View style={styles.modalOverlay}>
           <ScrollView style={styles.modalContent} contentContainerStyle={{ paddingBottom: 40 }}>
             <Text style={styles.modalTitle}>{t('save_dialog_title')}</Text>

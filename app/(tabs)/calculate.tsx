@@ -162,14 +162,14 @@ export default function CalculateScreen() {
       </View>
 
       {/* ====== NEW RELATIONSHIP MODAL ====== */}
-      <Modal visible={showNew} animationType="slide" presentationStyle="pageSheet">
+      <Modal visible={showNew} animationType="slide" presentationStyle="pageSheet" onRequestClose={() => { setShowNew(false); setSteps([]); }}>
         <View style={styles.modalContainer}>
-          <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => { setShowNew(false); setSteps([]); }}>
+          <View style={[styles.modalHeader, { paddingTop: 60 }]}>
+            <TouchableOpacity onPress={() => { setShowNew(false); setSteps([]); }} style={styles.closeBtnHit}>
               <Text style={styles.modalCancel}>{zh ? '取消' : 'Cancel'}</Text>
             </TouchableOpacity>
             <Text style={styles.modalTitle}>{zh ? '新建关系' : 'New Relationship'}</Text>
-            <View style={{ width: 50 }} />
+            <View style={{ width: 60 }} />
           </View>
 
           <View style={styles.modeRow}>
@@ -216,7 +216,7 @@ export default function CalculateScreen() {
       </Modal>
 
       {/* ====== TRASH MODAL ====== */}
-      <Modal visible={showTrash} animationType="slide" presentationStyle="pageSheet">
+      <Modal visible={showTrash} animationType="slide" presentationStyle="pageSheet" onRequestClose={() => setShowTrash(false)}>
         <View style={styles.modalContainer}>
           <View style={[styles.modalHeader, { paddingTop: 60 }]}>
             <TouchableOpacity onPress={() => setShowTrash(false)} style={styles.closeBtnHit}>
