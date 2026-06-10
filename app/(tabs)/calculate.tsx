@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   View, Text, ScrollView, TouchableOpacity, StyleSheet,
-  Modal, Alert,
+  Modal, Alert, Image,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useLanguage } from '../../src/i18n/LanguageContext';
@@ -113,11 +113,15 @@ export default function CalculateScreen() {
                   );
                 }}
               >
-                <View style={styles.cardAvatar}>
-                  <Text style={styles.cardAvatarText}>
-                    {rel.name.charAt(0)}
-                  </Text>
-                </View>
+                {rel.photo ? (
+                  <Image source={{ uri: rel.photo }} style={styles.cardAvatar} />
+                ) : (
+                  <View style={styles.cardAvatar}>
+                    <Text style={styles.cardAvatarText}>
+                      {rel.name.charAt(0)}
+                    </Text>
+                  </View>
+                )}
                 <View style={styles.cardInfo}>
                   <Text style={styles.cardName}>{rel.name}</Text>
                   <Text style={styles.cardTerm}>{rel.term}</Text>
@@ -214,12 +218,12 @@ export default function CalculateScreen() {
       {/* ====== TRASH MODAL ====== */}
       <Modal visible={showTrash} animationType="slide" presentationStyle="pageSheet">
         <View style={styles.modalContainer}>
-          <View style={styles.modalHeader}>
-            <TouchableOpacity onPress={() => setShowTrash(false)}>
+          <View style={[styles.modalHeader, { paddingTop: 60 }]}>
+            <TouchableOpacity onPress={() => setShowTrash(false)} style={styles.closeBtnHit}>
               <Text style={styles.modalCancel}>{zh ? '关闭' : 'Close'}</Text>
             </TouchableOpacity>
             <Text style={styles.modalTitle}>{zh ? '回收站' : 'Trash'}</Text>
-            <View style={{ width: 50 }} />
+            <View style={{ width: 60 }} />
           </View>
 
           <ScrollView style={styles.modalBody} contentContainerStyle={{ padding: 16 }}>
@@ -291,6 +295,7 @@ const styles = StyleSheet.create({
     width: 48, height: 48, borderRadius: 24, backgroundColor: '#c41e3a',
     alignItems: 'center', justifyContent: 'center',
   },
+  closeBtnHit: { paddingVertical: 16, paddingHorizontal: 8 },
   cardAvatarText: { fontSize: 20, fontWeight: 'bold', color: '#fff' },
   cardInfo: { flex: 1, marginLeft: 14 },
   cardName: { fontSize: 17, fontWeight: '600', color: '#333' },
